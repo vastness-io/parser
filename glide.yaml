@@ -1,0 +1,14 @@
+package: github.com/vastness-io/parser
+import:
+- package: github.com/vastness-io/toolkit
+  version: 0.1.1
+- package: github.com/vastness-io/coordinator-svc
+  version: 0.2.0
+- package: gopkg.in/src-d/go-git.v4
+- package: github.com/vastness-io/parser-svc
+- package: github.com/sirupsen/logrus
+  version: v1.0.5
+- package: github.com/urfave/cli
+  version: v1.20.0
+- package: github.com/opentracing/opentracing-go
+  version: v1.0.2

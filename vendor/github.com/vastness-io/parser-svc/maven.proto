@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package parser;
+
+message MavenResponse {
+    string group_id = 1;
+    string artifact_id = 2;
+    string version = 3;
+    Parent parent = 4;
+    repeated string modules = 5;
+    Properties properties = 6;
+  
+    message Parent {
+        string group_id = 1;
+        string artifact_id = 2;
+        string version = 3;
+        string relative_path = 4;
+    }
+
+    message Properties {
+        string java_version = 1;
+    }
+}
+
+

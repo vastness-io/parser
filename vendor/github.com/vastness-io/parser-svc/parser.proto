@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "maven.proto";
+
+package parser;
+
+service Parser {
+    rpc Analyse (ParserRequest) returns (ParserResponse);
+}
+
+message ParserRequest {
+     string remote_url = 1;
+     string version = 2;
+     repeated FileInfo file_info = 3;
+     string type = 4;
+}
+
+message ParserResponse {
+    repeated MavenResponse maven_response = 1;
+}
+
+message FileInfo {
+    string language = 1;
+    repeated string file_names = 2;
+}

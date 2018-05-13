@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "branch.proto";
+
+package project;
+
+message Repository {
+    string name = 1;
+    string owner = 2;
+    string type = 3;
+    repeated Branch branches = 4;
+}
