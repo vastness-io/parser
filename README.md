@@ -1,1 +1,1 @@
-# parser
+# parser [![Build Status](https://travis-ci.org/vastness-io/parser.svg)](https://travis-ci.org/vastness-io/parser) [![codecov](https://codecov.io/gh/vastness-io/parser/branch/master/graph/badge.svg)](https://codecov.io/gh/vastness-io/parser)

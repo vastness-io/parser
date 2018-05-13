@@ -26,6 +26,7 @@ func (g *InMemoryGit) Clone(remoteURL string) error {
 
 	repo, err := git.Clone(storer, fs, &git.CloneOptions{
 		URL: remoteURL,
+		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
 	})
 
 	if err != nil {

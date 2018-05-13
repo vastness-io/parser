@@ -1,13 +1,21 @@
+sudo: required
+
 language: go
 
 go:
-  - 1.9.x
+- 1.9.x
 
-sudo: false
+services:
+- docker
+
+before_install:
+- git submodule update --init --recursive
+- docker login quay.io -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
 script:
-  - make test
-  - make build
+-  make test && make build && if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+    make push;
+  fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
