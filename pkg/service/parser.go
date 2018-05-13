@@ -12,6 +12,7 @@ import (
 var (
 	NoParserAvailable = errors.New("no parser for type specified")
 )
+
 type ParserService interface {
 	Parse(*model.Repository) (*parser.ParserResponse, error)
 }
@@ -23,7 +24,7 @@ type parserService struct {
 
 func NewParserService(set vcs.VcsSet, parserSet internal.TypeParserSet) ParserService {
 	return &parserService{
-		vcsSet: set,
+		vcsSet:        set,
 		typeParserSet: parserSet,
 	}
 }
@@ -74,6 +75,8 @@ func (ps *parserService) Parse(repository *model.Repository) (*parser.ParserResp
 				return nil, err
 			}
 
+			file.Close()
+
 			t, err := p.Parse(b)
 
 			if err != nil {
@@ -83,14 +86,15 @@ func (ps *parserService) Parse(repository *model.Repository) (*parser.ParserResp
 			switch con := t.(type) {
 
 			case *internal.MavenPom:
+
 				out.MavenResponse = append(out.MavenResponse, &parser.MavenResponse{
 					GroupId:    con.GroupID,
 					ArtifactId: con.ArtifactID,
 					Version:    con.Version,
 					Parent: &parser.MavenResponse_Parent{
-						GroupId: con.Parent.GroupID,
-						ArtifactId: con.Parent.ArtifactID,
-						Version: con.Parent.Version,
+						GroupId:      con.Parent.GroupID,
+						ArtifactId:   con.Parent.ArtifactID,
+						Version:      con.Parent.Version,
 						RelativePath: con.Parent.RelativePath,
 					},
 					Modules: con.Modules,
