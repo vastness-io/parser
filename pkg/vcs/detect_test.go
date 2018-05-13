@@ -1,35 +1,35 @@
 package vcs
 
 import (
-	"testing"
 	"github.com/vastness-io/parser/pkg/vcs/git"
 	"reflect"
+	"testing"
 )
 
 func TestDetectVcs(t *testing.T) {
-	tests := []struct{
-		vcsSet VcsSet
-		vcsType string
+	tests := []struct {
+		vcsSet   VcsSet
+		vcsType  string
 		expected Vcs
-		err error
-	} {
+		err      error
+	}{
 		{
-			vcsSet:NewVcsSet(&git.InMemoryGit{}),
-			vcsType: "GITHUB",
+			vcsSet:   NewVcsSet(&git.InMemoryGit{}),
+			vcsType:  "GITHUB",
 			expected: &git.InMemoryGit{},
-			err: nil,
+			err:      nil,
 		},
 		{
-			vcsSet:NewVcsSet(&git.InMemoryGit{}),
-			vcsType: "BITBUCKET-SERVER",
+			vcsSet:   NewVcsSet(&git.InMemoryGit{}),
+			vcsType:  "BITBUCKET-SERVER",
 			expected: &git.InMemoryGit{},
-			err: nil,
+			err:      nil,
 		},
 		{
-			vcsSet:NewVcsSet(&git.InMemoryGit{}),
-			vcsType: "svn",
+			vcsSet:   NewVcsSet(&git.InMemoryGit{}),
+			vcsType:  "svn",
 			expected: nil,
-			err: UnsupportedVcsType,
+			err:      UnsupportedVcsType,
 		},
 	}
 

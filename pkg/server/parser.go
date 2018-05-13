@@ -17,7 +17,7 @@ type parserServer struct {
 func NewParserServer(parserService service.ParserService, log *logrus.Entry) parser.ParserServer {
 	return &parserServer{
 		parserService: parserService,
-		log: log,
+		log:           log,
 	}
 }
 

@@ -1,6 +1,8 @@
-hash: 15b543c894384e34f50c210d7cbf41ec97f17d85a7e2c839dce90deb35835be0
-updated: 2018-05-13T14:49:30.810695+02:00
+hash: bf4736f1674aecce168ddfc9d897c7525be09bf1b9cd6834337422b9e2e1ac83
+updated: 2018-05-13T22:28:05.462942+02:00
 imports:
+- name: github.com/AaronO/go-git-http
+  version: 1d9485b3a98f7484772acb5f0dda28b69b958fdd
 - name: github.com/beorn7/perks
   version: 3a771d992973f24aa725d07868b467d1ddfceafb
   subpackages:
@@ -14,6 +16,10 @@ imports:
   - trees
   - trees/binaryheap
   - utils
+- name: github.com/golang/mock
+  version: c34cdb4725f4c3844d095133c6e40e448b86589b
+  subpackages:
+  - gomock
 - name: github.com/golang/protobuf
   version: 927b65914520a8b7d44f5c9057611cfec6b2e2d0
   subpackages:

@@ -12,9 +12,10 @@ func ParserRequestToFileTypes(in *parser.ParserRequest) (*model.Repository, erro
 	}
 
 	out := &model.Repository{
-		RemoteURL: in.RemoteUrl,
-		Version:   in.Version,
+		RemoteURL: in.GetRemoteUrl(),
+		Version:   in.GetVersion(),
 		FileInfo:  make([]*model.FileInfo, 0),
+		Type: in.GetType(),
 	}
 	for _, fi := range in.FileInfo {
 		var (
@@ -33,10 +34,10 @@ func ParserRequestToFileTypes(in *parser.ParserRequest) (*model.Repository, erro
 
 func validateParserRequest(in *parser.ParserRequest) error {
 	var (
-		version   = in.Version
-		repoType  = in.Type
-		remoteUrl = in.RemoteUrl
-		fileInfo  = in.FileInfo
+		version   = in.GetVersion()
+		repoType  = in.GetType()
+		remoteUrl = in.GetRemoteUrl()
+		fileInfo  = in.GetFileInfo()
 	)
 
 	if remoteUrl == "" {
@@ -63,6 +64,14 @@ func validateParserRequest(in *parser.ParserRequest) error {
 		if len(fi.FileNames) == 0 {
 			return errors.New("no files avaliable for language")
 		}
+
+		for _, fn := range fi.FileNames {
+			if fn == "" {
+				return errors.New("invalid file name")
+			}
+		}
+
+
 	}
 
 	return nil

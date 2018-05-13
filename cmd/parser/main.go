@@ -1,22 +1,22 @@
 package main
 
 import (
+	"fmt"
+	"github.com/opentracing/opentracing-go"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
-	"fmt"
-	"os"
-	"net"
-	"strconv"
-	toolkit "github.com/vastness-io/toolkit/pkg/grpc"
-	"github.com/vastness-io/parser/pkg/vcs"
-	"github.com/vastness-io/parser/pkg/parser"
-	"github.com/vastness-io/parser/pkg/service"
-	"github.com/vastness-io/parser/pkg/server"
-	"os/signal"
-	"syscall"
-	"github.com/vastness-io/parser/pkg/vcs/git"
 	svc "github.com/vastness-io/parser-svc"
-	"github.com/opentracing/opentracing-go"
+	"github.com/vastness-io/parser/pkg/parser"
+	"github.com/vastness-io/parser/pkg/server"
+	"github.com/vastness-io/parser/pkg/service"
+	"github.com/vastness-io/parser/pkg/vcs"
+	"github.com/vastness-io/parser/pkg/vcs/git"
+	toolkit "github.com/vastness-io/toolkit/pkg/grpc"
+	"net"
+	"os"
+	"os/signal"
+	"strconv"
+	"syscall"
 )
 
 const (
@@ -82,7 +82,7 @@ func run() {
 		vcsSet         = vcs.NewVcsSet(&gitVcs)
 		mavenPomParser = parser.MavenPomParser{}
 		typeParserSet  = parser.NewTypeParserSet(&mavenPomParser)
-		parserSvc      = service.NewParserService(vcsSet,typeParserSet)
+		parserSvc      = service.NewParserService(vcsSet, typeParserSet)
 	)
 
 	if err != nil {

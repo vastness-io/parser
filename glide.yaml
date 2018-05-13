@@ -12,3 +12,7 @@ import:
   version: v1.20.0
 - package: github.com/opentracing/opentracing-go
   version: v1.0.2
+- package: github.com/AaronO/go-git-http
+  version: 1.0.0
+- package: github.com/golang/mock
+  version: v1.1.1

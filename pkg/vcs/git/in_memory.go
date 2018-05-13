@@ -25,7 +25,9 @@ func (g *InMemoryGit) Clone(remoteURL string) error {
 	)
 
 	repo, err := git.Clone(storer, fs, &git.CloneOptions{
-		URL: remoteURL,
+		URL:               remoteURL,
+		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
+		Tags:              git.AllTags,
 	})
 
 	if err != nil {
@@ -46,27 +48,39 @@ func (g *InMemoryGit) Checkout(versionish string) error {
 	}
 
 	var (
-		branch = plumbing.ReferenceName(fmt.Sprintf("refs/remotes/origin/%s", versionish))
 		hash   = plumbing.NewHash(versionish)
+		branch = plumbing.ReferenceName(fmt.Sprintf("refs/remotes/origin/%s", versionish))
+		tag    = plumbing.ReferenceName(fmt.Sprintf("refs/tags/%s", versionish))
 	)
 
+	err = wt.Checkout(&git.CheckoutOptions{
+		Branch: branch,
+	})
 
-	if branch.IsRemote()  {
-		err = wt.Checkout(&git.CheckoutOptions{
-			Branch: branch,
-		})
+	if err != nil {
 
 		if err == plumbing.ErrReferenceNotFound {
-			return wt.Checkout(&git.CheckoutOptions{
-				Hash: hash,
+
+			err = wt.Checkout(&git.CheckoutOptions{
+				Branch: tag,
 			})
+
+			if err != nil {
+				if err == plumbing.ErrReferenceNotFound {
+					if !hash.IsZero() {
+						return wt.Checkout(&git.CheckoutOptions{
+							Hash: hash,
+						})
+					}
+				}
+				return err
+			}
+
 		}
-		return nil
+		return err
 	}
 
-	return wt.Checkout(&git.CheckoutOptions{
-		Hash: hash,
-	})
+	return nil
 
 }
 
