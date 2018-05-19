@@ -5,6 +5,10 @@ LATEST_TAG=$(shell git tag -l | head -n 1)
 export VERSION COMMIT LATEST_TAG
 .PHONY: test
 
+generate:
+	@echo "=> generating mocks"
+	mockgen github.com/vastness-io/parser/pkg/vcs Vcs > pkg/mock/vcs/vcs_mock.go
+
 test:
 	@echo "=> Running tests"
 	./hack/run-tests.sh

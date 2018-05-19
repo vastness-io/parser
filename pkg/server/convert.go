@@ -63,6 +63,14 @@ func validateParserRequest(in *parser.ParserRequest) error {
 		if len(fi.FileNames) == 0 {
 			return errors.New("no files avaliable for language")
 		}
+
+		for _, fn := range fi.FileNames {
+			if fn == "" {
+				return errors.New("invalid file name")
+			}
+		}
+
+
 	}
 
 	return nil
